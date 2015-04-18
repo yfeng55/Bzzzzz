@@ -18,7 +18,8 @@
         <item name="android:icon">@drawable/buzzlogo</item>
         <item name="displayOptions">showHome|useLogo</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:height">54dp</item>
 
     </style>
+
+
 </resources>
