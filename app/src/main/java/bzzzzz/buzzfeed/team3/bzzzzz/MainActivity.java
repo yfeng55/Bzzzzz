@@ -1,5 +1,6 @@
 package bzzzzz.buzzfeed.team3.bzzzzz;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private static String url = "http://www.buzzfeed.com/buzzfeed/api/buzzes?ids=1234,234,4567&session_key=2ee4e2768c44aedd9481f2e70855fb6716323a5c8995da8a7386fd863aee54bfhackathon2";
     private ConnectivityManager connMgr;
@@ -38,11 +40,9 @@ public class MainActivity extends ActionBarActivity {
     private WebView webView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        articleName = (TextView) findViewById(R.id.articleName);
 
         // call AsyncTask to perform network operation on separate thread
         new HttpAsyncTask().execute(url);
