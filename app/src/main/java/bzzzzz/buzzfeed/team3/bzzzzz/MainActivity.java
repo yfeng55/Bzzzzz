@@ -1,6 +1,7 @@
 package bzzzzz.buzzfeed.team3.bzzzzz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +34,15 @@ public class MainActivity extends ActionBarActivity {
 
     private static String url = "http://www.buzzfeed.com/buzzfeed/api/buzzes?ids=1234,234,4567&session_key=2ee4e2768c44aedd9481f2e70855fb6716323a5c8995da8a7386fd863aee54bfhackathon2";
     private ConnectivityManager connMgr;
-    TextView articleName;
+//    TextView articleName;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        articleName = (TextView) findViewById(R.id.articleName);
+//        articleName = (TextView) findViewById(R.id.articleName);
 
         // call AsyncTask to perform network operation on separate thread
         new HttpAsyncTask().execute(url);
@@ -94,10 +97,11 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-            articleName.setText(result);
+            //articleName.setText(result);
 
             String user;
             String uri;
+            String article_url;
 
             //convert json to result
             try {
@@ -110,7 +114,16 @@ public class MainActivity extends ActionBarActivity {
                 user = buzz.getString("username");
                 uri = buzz.getString("uri");
 
-                articleName.setText("http://www.buzzfeed.com/" + user + "/" + uri);
+                article_url = "http://www.buzzfeed.com/" + user + "/" + uri;
+                //articleName.setText(article_url);
+
+//                Intent i = new Intent(getBaseContext(), WebviewActivity.class);
+//                i.putExtra("article", article_url);
+//                startActivity(i);
+
+                webView = (WebView) findViewById(R.id.webView1);
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.loadUrl(article_url);
 
             } catch (JSONException e) {
                 e.printStackTrace();
