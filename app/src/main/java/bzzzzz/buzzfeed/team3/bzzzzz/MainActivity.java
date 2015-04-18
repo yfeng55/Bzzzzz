@@ -107,8 +107,7 @@ public class MainActivity extends Activity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-            //articleName.setText(result);
+            Toast.makeText(getBaseContext(), "Loading...", Toast.LENGTH_LONG).show();
 
             String user;
             String uri;
@@ -121,16 +120,10 @@ public class MainActivity extends Activity {
                 JSONArray buzzes = jsonResult.getJSONArray("buzzes"); // get buzzes array
                 JSONObject buzz = buzzes.getJSONObject(0); // get first article in the array
 
-                //buzzes.getJSONObject(0).names() // get first article keys [title,url,categories,tags]
                 user = buzz.getString("username");
                 uri = buzz.getString("uri");
 
                 article_url = "http://www.buzzfeed.com/" + user + "/" + uri;
-                //articleName.setText(article_url);
-
-//                Intent i = new Intent(getBaseContext(), WebviewActivity.class);
-//                i.putExtra("article", article_url);
-//                startActivity(i);
 
                 webView = (WebView) findViewById(R.id.webView1);
                 webView.getSettings().setJavaScriptEnabled(true);
